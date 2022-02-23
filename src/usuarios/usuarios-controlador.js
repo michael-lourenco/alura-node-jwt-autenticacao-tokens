@@ -7,8 +7,7 @@ function criaTokenJWT(usuario) {
     id: usuario.id,
   };
 
-  //return jwt.sign(payload, process.env.JWT_SECRET, {
-  return jwt.sign(payload, 'senha-secreta');
+  return jwt.sign(payload, process.env.CHAVE_JWT);
 }
 
 module.exports = {
