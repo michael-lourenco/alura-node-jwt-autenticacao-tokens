@@ -1,5 +1,5 @@
 const passport = require('passport');
-const bcript = require('bcrypt');
+const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
 const Usuario = require('./usuarios-modelo');
 const { InvalidArgumentError } = require('../erros');
@@ -29,7 +29,7 @@ passport.use(
         try {
             const usuario = await Usuario.buscaPorEmail(email);
             verificaUsuario(usuario);
-            verificaSenha(senha, usuario.senhaHash);
+            await verificaSenha(senha, usuario.senhaHash);
             done(null, usuario);    
         } catch (error) {
             done(error);
