@@ -1,4 +1,4 @@
-const db = require('../../database');
+const db = require("../../database");
 
 module.exports = {
   adiciona: post => {
@@ -13,7 +13,7 @@ module.exports = {
         [post.titulo, post.conteudo],
         erro => {
           if (erro) {
-            return reject('Erro ao adicionar o post!');
+            return reject("Erro ao adicionar o post!");
           }
 
           return resolve();
@@ -26,7 +26,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.all(`SELECT * FROM posts`, (erro, resultados) => {
         if (erro) {
-          return reject('Erro ao listar os posts!');
+          return reject("Erro ao listar os posts!");
         }
 
         return resolve(resultados);

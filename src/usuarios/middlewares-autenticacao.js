@@ -1,12 +1,12 @@
-const passport = require('passport');
+const passport = require("passport");
 
 module.exports = {
     local: (req, res, next) => {
             passport.authenticate(
-                'local', 
+                "local", 
                 { session: false }, 
                 (error, usuario, info) => {
-                    if(error  && error.name === 'InvalidArgumentError'){
+                    if(error  && error.name === "InvalidArgumentError"){
                         return res.status(401).json({ error: error.message });
                     }
 
@@ -26,14 +26,14 @@ module.exports = {
     
     bearer: (req, res, next) => {
         passport.authenticate(
-            'bearer',
+            "bearer",
             { session: false },
             (error, usuario, info) => {
-                if(error && error.name === 'JsonWebTokenError') {
+                if(error && error.name === "JsonWebTokenError") {
                     return res.status(401).json({ error: error.message });
                 }
 
-                if(error && error.name === 'TokenExpiredError') { 
+                if(error && error.name === "TokenExpiredError") { 
                     return res.status(401).json({ error: error.message, expiradoEm: error.expiredAt });
                 }
 
@@ -50,5 +50,5 @@ module.exports = {
                 return next();
             }
         )(req, res, next);
-    }
+    },
 };

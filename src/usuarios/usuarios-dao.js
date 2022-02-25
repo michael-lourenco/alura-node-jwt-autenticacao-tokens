@@ -1,5 +1,5 @@
-const db = require('../../database');
-const { InternalServerError } = require('../erros');
+const db = require("../../database");
+const { InternalServerError } = require("../erros");
 
 module.exports = {
   adiciona: usuario => {
@@ -15,7 +15,7 @@ module.exports = {
         [usuario.nome, usuario.email, usuario.senhaHash],
         erro => {
           if (erro) {
-            reject(new InternalServerError('Erro ao adicionar o usuário!'));
+            reject(new InternalServerError("Erro ao adicionar o usuário!"));
           }
 
           return resolve();
@@ -35,7 +35,7 @@ module.exports = {
         [id],
         (erro, usuario) => {
           if (erro) {
-            return reject('Não foi possível encontrar o usuário!');
+            return reject("Não foi possível encontrar o usuário!");
           }
 
           return resolve(usuario);
@@ -55,7 +55,7 @@ module.exports = {
         [email],
         (erro, usuario) => {
           if (erro) {
-            return reject('Não foi possível encontrar o usuário!');
+            return reject("Não foi possível encontrar o usuário!");
           }
 
           return resolve(usuario);
@@ -72,7 +72,7 @@ module.exports = {
         `,
         (erro, usuarios) => {
           if (erro) {
-            return reject('Erro ao listar usuários');
+            return reject("Erro ao listar usuários");
           }
           return resolve(usuarios);
         }
@@ -90,11 +90,11 @@ module.exports = {
         [usuario.id],
         erro => {
           if (erro) {
-            return reject('Erro ao deletar o usuário');
+            return reject("Erro ao deletar o usuário");
           }
           return resolve();
         }
       );
     });
-  }
+  },
 };

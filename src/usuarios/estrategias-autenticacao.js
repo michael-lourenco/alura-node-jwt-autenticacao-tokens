@@ -1,40 +1,40 @@
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const BearerStrategy = require('passport-http-bearer').Strategy;
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const BearerStrategy = require("passport-http-bearer").Strategy;
 
-const Usuario = require('./usuarios-modelo');
+const Usuario = require("./usuarios-modelo");
 
-const { InvalidArgumentError } = require('../erros');
+const { InvalidArgumentError } = require("../erros");
 
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const blackList = require('../../redis/manipula-blacklist');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const blackList = require("../../redis/manipula-blacklist");
 
 function verificaUsuario(usuario) {
   if (!usuario) {
-    throw new InvalidArgumentError('Não existe usuário com esse e-mail!');
+    throw new InvalidArgumentError("Não existe usuário com esse e-mail!");
   }
 }
 
 async function verificaTokenNaBlacklist(token) {
   const tokenNaBlacklist = await blackList.contemToken(token);
   if(tokenNaBlacklist) {
-    throw new jwt.JsonWebTokenError('Token inválido!');
+    throw new jwt.JsonWebTokenError("Token inválido!");
   }
 }
 
 async function verificaSenha(senha, senhaHash) {
   const senhaValida = await bcrypt.compare(senha, senhaHash);
   if (!senhaValida) {
-    throw new InvalidArgumentError('E-mail ou senha inválidos!');
+    throw new InvalidArgumentError("E-mail ou senha inválidos!");
   }
 }
 
 passport.use(
   new LocalStrategy(
     {
-      usernameField: 'email',
-      passwordField: 'senha',
+      usernameField: "email",
+      passwordField: "senha",
       session: false
     },
     async (email, senha, done) => {
@@ -64,4 +64,4 @@ passport.use(
       }
     }
   )
-)
+);

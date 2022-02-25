@@ -1,4 +1,5 @@
-const redis = require('redis');
+const redis = require("redis");
+
 module.exports = redis.createClient({
-    prefix: 'blackList:'
+    prefix: "blackList:"
 });
